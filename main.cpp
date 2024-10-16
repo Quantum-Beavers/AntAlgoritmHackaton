@@ -10,7 +10,17 @@ using namespace std;
 // список названия вершин (индекс в ColumnName == индексу в table) для расстановки соответствий
 const vector<string> ColumnName = { "O", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N" };
 
-int main(){
+const int Alpha = 1;
+
+const int Beta = 1;
+
+// double PriorityCalculate(){
+//     double newPriority;
+//     newPriority =  f
+//     return newPriority;
+// }
+
+int main() {
     // переменная под приоритет вершины
     double PriorityNode = 0.2;
 
@@ -21,7 +31,7 @@ int main(){
 
 
     // матрица расстояний между местоположениями, где первый double --- растояние между двумя пунктами, второй --- вероятность пойти в этот пункт
-    vector<vector<pair<double, double>>> table (tableSize, vector<pair<double, double>> (tableSize));
+    vector<vector<pair<double, double>>> table(tableSize, vector<pair<double, double>>(tableSize));
 
     // открытие файла
     ifstream file("../input.csv");
@@ -29,7 +39,7 @@ int main(){
     int row = 0;
     int column = 0;
 
-    for (int i = 0; i <= tableSize; ++i){
+    for (int i = 0; i <= tableSize; ++i) {
         column = 0;
         // создаем переменную под считывание строки
         string line, token;
@@ -39,7 +49,7 @@ int main(){
         int position = 0;
 
         // если строка не заголовок, то переносим в table
-        if (i > 0){
+        if (i > 0) {
             // удаляем первую колонку с буквами
             position = line.find(",", position);
             line = line.substr(position + 1, line.length());
@@ -52,37 +62,31 @@ int main(){
                 if (line.substr(0, position) != "-") {
                     // записываем число в переменную
                     int value = stoi(line.substr(0, position));
-                    // записываем число в матрицу
-                    if (value == 0) {
-                        table[row][column] = pair(-1, PriorityNode);
-                    }
-                    else {
-                        table[row][column] = pair(value, PriorityNode);
-                    }
+                    table[row][column] = make_pair(value, PriorityNode);
                 }
                 else {
-                    table[row][column] = pair(-1, PriorityNode);
+                    table[row][column] = make_pair(0, PriorityNode);
                 }
                 column++;
                 // обрезаем строчку до следующего числа
                 line = line.substr(position + 1, line.length());
+                position = 0;
             }
             cout << line.substr(0, line.length()) << endl;
-            // добавление последней вершины
-            // if (line.substr(0, line.length()) != "-") {
-            //     // записываем число в переменную
-            //     int value = stoi(line.substr(0, line.length()));
-            //     // записываем число в матрицу
-            //     if (value == 0) {
-            //         table[row][column] = pair(-1, PriorityNode);
-            //     }
-            //     else {
-            //         table[row][column] = pair(value, PriorityNode);
-            //     }
-            // }
-            // else {
-            //     table[row][column] = pair(-1, PriorityNode);
-            // }
+             if (line.substr(0, line.length()) != "-") {
+                 // записываем число в переменную
+                 int value = stoi(line.substr(0, line.length()));
+                 // записываем число в матрицу
+                 if (value == 0) {
+                     table[row][column] = make_pair(0, PriorityNode);
+                 }
+                 else {
+                     table[row][column] = make_pair(value, PriorityNode);
+                 }
+             }
+             else {
+                 table[row][column] = make_pair(0, PriorityNode);
+             }
             row++;
         }
     }
