@@ -17,8 +17,11 @@ const int Beta = 1;
 double PriorityCalculate(int number, double distance, double pheramon, vector<vector<pair<double, double>>>& table){
     double newPriority;
     // знаменатель формулы
-    double sum;
+    double sum = 0;
     for (int i = 0; i < table[number].size(); ++i){
+        if (table[number][i].first != 0){
+            continue;
+        }
         sum += (table[number][i].second * (200.0 / table[number][i].first));
     }
     // подсчет значения
@@ -97,14 +100,44 @@ int main() {
         }
     }
 
-    for (int i = 0; i < tableSize; ++i) {
-        for (int j = 0; j < tableSize; ++j) {
-            cout << table[i][j].first << " ";
-        }
-        cout << endl;
-    }
+    // for (int i = 0; i < tableSize; ++i) {
+    //     for (int j = 0; j < tableSize; ++j) {
+    //         cout << table[i][j].first << " ";
+    //     }
+    //     cout << endl;
+    // }
 
 
     // закрытие файла
     file.close();
+
+
+    // это количество итераций, пусть будет сотка
+    for (int t = 0; t < 100; ++t){
+        // от каждой вершиеы запустим расчет приоритета
+        for (int i = 0; i < tableSize; ++i){
+
+        }
+    }
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
