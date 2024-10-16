@@ -14,11 +14,17 @@ const int Alpha = 1;
 
 const int Beta = 1;
 
-// double PriorityCalculate(){
-//     double newPriority;
-//     newPriority =  f
-//     return newPriority;
-// }
+double PriorityCalculate(int number, double distance, double pheramon, vector<vector<pair<double, double>>>& table){
+    double newPriority;
+    // знаменатель формулы
+    double sum;
+    for (int i = 0; i < table[number].size(); ++i){
+        sum += (table[number][i].second * (200.0 / table[number][i].first));
+    }
+    // подсчет значения
+    newPriority = (pheramon * (200.0 / distance)) / (sum);
+    return newPriority;
+}
 
 int main() {
     // переменная под приоритет вершины
